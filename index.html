@@ -12,7 +12,7 @@
   <body>
     <section class="page-header">
       <h1 class="project-name">Stock Portfolio Management Based On Machine Learning Model</h1>
-      <h2 class="project-tagline">CS5600</h2>
+      <h2 class="project-tagline"></h2>
       <a href="https://github.com/AnzZacharias/CS5600" class="btn">View on GitHub</a>
       <a href="https://github.com/AnzZacharias/CS5600/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/AnzZacharias/CS5600/tarball/master" class="btn">Download .tar.gz</a>
@@ -73,7 +73,13 @@ Thus, linear regression proved to perform slightly better compared to SVM linear
 <h1>
 <a id="python-r-integration" class="anchor" href="#python-r-integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python R Integration</h1>
 
-<p>After analyzing and experimenting the performance of different models, linear regression with the best performing formula is chosen to predict the stock price. Python program is used to implement recommendation email generation functionality. PipeR module is used to integrate Python with R. Model is saved and imported to Python to make predictions. Email is sent from Python evaluating the expected percentage price increase for each stock in the portfolio.</p>
+<p>After analyzing and experimenting the performance of different models, linear regression with the best performing formula is chosen to predict the stock price. Model is saved with the R command <code>saveRDS(model, 'linear_model.rds')</code>
+Python program is used to implement recommendation email generation functionality. PipeR module is used to integrate Python with R. Model is saved and imported to Python to make predictions. 
+<code>r('library(e1071)')
+    r('model &lt;- readRDS(\'modelfile.rds\')')
+    r('days5_data = read.csv(\"test2.data.csv\",header = T)')
+    r('predict_stockprice = predict(model,newdata = days5_data)')</code>
+Email is sent from Python evaluating the expected percentage price increase for each stock in the portfolio.</p>
 
 <h1>
 <a id="test-example" class="anchor" href="#test-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test Example</h1>
@@ -82,8 +88,12 @@ Thus, linear regression proved to perform slightly better compared to SVM linear
 <a id="input" class="anchor" href="#input" aria-hidden="true"><span class="octicon octicon-link"></span></a>Input</h2>
 
 <p>Input is a csv file with previous 5 days features of the 10 stocks in the portfolio. A portion of the sample input is shown below.<img src="https://cloud.githubusercontent.com/assets/11024045/11378734/ec16915c-92a9-11e5-8c16-c3c4a5f97898.png" alt="sample input">
-Python program process the input data through the saved model and generate an email and send to the investor. A sample message body is shown below.
-<img src="https://cloud.githubusercontent.com/assets/11024045/11378751/06ae9f14-92aa-11e5-9582-d5fef79c993c.png" alt="sample output"></p>
+Python program process the input data through the saved model and generate an email and send to the investor. A sample message body is shown below.</p>
+
+<h2>
+<a id="output" class="anchor" href="#output" aria-hidden="true"><span class="octicon octicon-link"></span></a>Output</h2>
+
+<p><img src="https://cloud.githubusercontent.com/assets/11024045/11378751/06ae9f14-92aa-11e5-9582-d5fef79c993c.png" alt="sample output"></p>
 
 <h1>
 <a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h1>
