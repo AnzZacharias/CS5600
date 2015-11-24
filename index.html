@@ -20,23 +20,70 @@
 
     <section class="main-content">
       <h1>
-<a id="teaser" class="anchor" href="#teaser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Teaser</h1>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
-<p>Stock price prediction has always been an interesting topic. Lots of studies are done in the area of application of machine learning techniques in stock market. This project studies portfolio management making profitable investment decisions based on Support Vector Machine algorithm as well as statistical regression analysis. </p>
-
-<h1>
-<a id="what" class="anchor" href="#what" aria-hidden="true"><span class="octicon octicon-link"></span></a>What</h1>
-
-<p>The study is conducted on a portfolio, which contains 10 stocks from oil sector. 
-Fixed amount of money is invested in these stocks. Price movement is being watched continuously. Trading strategy is as follows - when more than 2% increase is expecting for a stock, it indicates ‘buy’ and on the other hand, 2% decrease indicates ‘sell’.  All other cases, decision is to ‘keep’. </p>
-
-<p>10 years of historical data is collected for the selected stocks.  Data is divided into 6 years for training the model, 3 years for cross-validation and 1 year for testing the performance of the model developed. Hypothesis behind the experiment is that, previous 5 days contains some information on the next day’s stock price. So the data is preprocessed to extract the five days variables for a particular stock for a given date in one single record. The next step is feature selection. Intuitively, five days stock price, index and volume are considered as feature space.  Model which gives least training as well as cross-validation error is accepted for prediction. Performance of the model is tuned by varying the selection of features, kernels and parameters of the algorithm.</p>
+<p>Numerous studies have been conducted in search of a prediction model for stock price and market trend. It’s been so popular as it works towards maximizing the investor’s return while keeping their risks minimum. Traditional technical analysis and Machine learning algorithms are the major analysis categories among them.
+In this project, predictive power of Support Vector Machine regression, a supervised learning algorithm and linear regression, are analyzed for short-term stock market prediction. Best performing model among those is used to build a trading system.</p>
 
 <h1>
-<a id="why" class="anchor" href="#why" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why</h1>
+<a id="problem-description" class="anchor" href="#problem-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem Description</h1>
 
-<p>SVM is one of the powerful supervised learning algorithms, which can be used for classification as well as regression analysis. It constructs a hyperplane with larger minimum distance, called margin from any of the training examples. 
-Multiple studies have been reported the feasibility of SVM in effectively predicting financial time series. Prior studies as well as the nature of the algorithm indicate that SVM is a good choice of machine learning technique to apply in this particular domain. Support Vector Regression is primarily used for the prediction in this study. Comparative performance analysis of linear regression as well as Poisson regression is also conducted. </p>
+<p>The problem at hand can be summarized as follows. We have a portfolio of a 10 stocks from a particular sector. We would like to invest a fixed amount of money in it. We would like to make sell/buy/keep decisions periodically in order to make maximum return from the investment. Whenever we predict 2% hike in price next day, we decide to buy more of those stock today and sell for 2% price dip. Any other prediction falls under the recommendation ‘keep’. Objective is to generate a stock trading recommendation and send it via email to investors daily. 
+Ideas from machine learning are applied to approach the above problem. The key point towards the solution strategy is that historical values of a given stock, for example, price and/or index carry information which can be utilized to identify a pattern to predict future price. So, in this project, different machine learning models, which represent those pattern, are evaluated and the best one found is used to solve the problem.</p>
+
+<h1>
+<a id="development-approach" class="anchor" href="#development-approach" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development Approach</h1>
+
+<p>Working towards the solution consists of two major steps. First step is, evaluation and selection of the best model, for this particular problem scenario. Second, build an application with the chosen model. </p>
+
+<h2>
+<a id="algorithms" class="anchor" href="#algorithms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithms</h2>
+
+<p>Support Vector Machine, supervised learning algorithm and linear regression have used in this study. Both of them are implemented in R statistical programming language. Package e1071 is used for svm implementation.</p>
+
+<h2>
+<a id="data-collection" class="anchor" href="#data-collection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Collection</h2>
+
+<p>Data for this project is collected from Yahoo Finance. 10 years of data for 10 stocks in oil sector is collected. Following Machine Learning methodology, the total data is divided into 3 parts – 6 years for training the model, 3 years for cross-validation and 1 year for testing. </p>
+
+<h2>
+<a id="data-preprocessing-and-feature-selection" class="anchor" href="#data-preprocessing-and-feature-selection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Preprocessing and Feature Selection</h2>
+
+<p>Collected data has Date, Open, High, Low, Close, Volume, Dow Jones Index and Adjusted Close as otherwise called features. Model building is based on the hypothesis that previous five days of features contain some information on  the next day’s price. So the task is find appropriate features from the previous five days data through analysis. As a first step, the data is processed to extract last five days variables in one single record. In addition, difference between each consecutive days index and volume is calculated and taken as another feature. Difference between consecutive day’s volume value is converted into logarithmic space to make it comparable with other features.</p>
+
+<h2>
+<a id="training-and-cross-validation-error-analysis" class="anchor" href="#training-and-cross-validation-error-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Training and Cross-Validation Error Analysis</h2>
+
+<p>In this analysis, mean absolute error of different models, i.e., intuitively choosing different formulas for the models are plotted and studied, where mean absolute error = mean(abs(actual price – predicted price) in the dataset. The same is done with training data as well as cross-validation data. Primarily, experimented wit SVM with radial-bias kernel, linear kernel and linear regression . Summary of the result is in Fig.1
+<img src="https://cloud.githubusercontent.com/assets/11024045/11371244/c64f128e-9284-11e5-884d-d4a21f81fe7f.png" alt="ErrorAnalysis.png"></p>
+
+<p>Algorithm and formula which gave minimum error in validation dataset is taken as the best found. Minimum training error model is eliminated, as it may be indicate overfitting to the training data. 
+From the plot simple linear regression is found to be slightly better compared to SVM linear regression.</p>
+
+<h1>
+<a id="accuracy-of-models" class="anchor" href="#accuracy-of-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accuracy of Models</h1>
+
+<p>Next step is finding the accuracy of prediction. Hypothesis behind accuracy definition in this particular application is taken as follows. In order to derive useful insight from price prediction, error percentage between actual and predicted price should be less than 1%. Prediction less than 1% is considered good and otherwise. Then accuracy of a model is calculated as (good predictions/ total predictions). Result is summarized in the plot below.Linear regression found to be the best among the three with 54% accuracy , while SVM with linear kernel is around 53% accuracy.</p>
+
+<p><img src="https://cloud.githubusercontent.com/assets/11024045/11371536/3e407bd8-9286-11e5-9dc6-e589d828c80f.png" alt="accuracy analysis"></p>
+
+<p>SVM algorithm performance varies with the selection of Cost parameter. So, in order to find the best cost parameter, accuracy is analyzed for a range of cost parameters with ‘tune.svm’ command under the library e1071. But, the best ‘cost’ parameter for the chosen formula is .5. But, the new cost parameter did not improve the accuracy significantly.
+Thus, linear regression proved to perform slightly better compared to SVM linear regression. </p>
+
+<h1>
+<a id="python-r-integration" class="anchor" href="#python-r-integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python R Integration</h1>
+
+<p>After analyzing and experimenting the performance of different models, linear regression with the best performing formula is chosen to predict the stock price. Python program is used to implement recommendation email generation functionality. PipeR module is used to integrate Python with R. Model is saved and imported to Python to make predictions. Email is sent from Python evaluating the expected percentage price increase for each stock in the portfolio.</p>
+
+<h1>
+<a id="test-examples" class="anchor" href="#test-examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test Examples</h1>
+
+<p>Training and validation data are stored in data folder in the repository.  R Script, Python program and test examples can be found in the repository as well.</p>
+
+<h1>
+<a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h1>
+
+<p>Trading strategy developed in this project is based on linear regression. Accuracy is found to be low, around 54% for short-term price prediction for the developed portfolio management system.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/AnzZacharias/CS5600">Stock Portfolio Management Based On Machine Learning Model</a> is maintained by <a href="https://github.com/AnzZacharias">AnzZacharias</a>.</span>
