@@ -66,27 +66,31 @@ Adj_Close_1 - Current day's close price  </p>
 <h2>
 <a id="training-and-cross-validation-error-analysis" class="anchor" href="#training-and-cross-validation-error-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Training and Cross-Validation Error Analysis</h2>
 
-<p>In this analysis, mean absolute error of different models, i.e., intuitively choosing different formulas for the models are plotted and studied, where mean absolute error = mean(abs(actual price – predicted price) in the dataset. The same is done with training data as well as cross-validation data. Primarily, experimented wit SVM with radial-bias kernel, linear kernel and linear regression . Summary of the result is in Fig.1
+<p>In this analysis, mean absolute error of different models, i.e., intuitively choosing different formulas for the models are plotted and studied, where <code>mean absolute error = mean(abs(actual price – predicted price)</code> in the dataset. The same is done with training data as well as cross-validation data. Primarily, experimented wit SVM with radial-bias kernel, linear kernel and linear regression . Summary of the result is in Fig.1
 <img src="https://cloud.githubusercontent.com/assets/11024045/11371244/c64f128e-9284-11e5-884d-d4a21f81fe7f.png" alt="ErrorAnalysis.png"></p>
 
 <p>Algorithm and formula which gave minimum error in validation dataset is taken as the best found. Minimum training error model is eliminated, as it may be indicate overfitting to the training data. 
-From the plot simple linear regression is found to be slightly better compared to SVM linear regression.</p>
+From the plot simple linear regression is found to be slightly better compared to SVM linear regression. R commands and scripts used for the analysis can be found in the repository. </p>
 
 <h1>
 <a id="accuracy-of-models" class="anchor" href="#accuracy-of-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>Accuracy of Models</h1>
 
-<p>Next step is finding the accuracy of prediction. Hypothesis behind accuracy definition in this particular application is taken as follows. In order to derive useful insight from price prediction, error percentage between actual and predicted price should be less than 1%. Prediction less than 1% is considered good and otherwise. Then accuracy of a model is calculated as (good predictions/ total predictions). Result is summarized in the plot below.Linear regression found to be the best among the three with 54% accuracy , while SVM with linear kernel is around 53% accuracy.</p>
+<p>Next step is finding the accuracy of prediction. Hypothesis behind accuracy definition in this particular application is taken as follows. In order to derive useful insight from price prediction, error percentage between actual and predicted price should be less than 1%. Prediction less than 1% is considered good and otherwise. Then accuracy of a model is calculated as <code>(good predictions/ total predictions)</code> Result is summarized in the plot below.Linear regression found to be the best among the three with 54% accuracy, while SVM with linear kernel is around 53% accuracy.</p>
 
 <p><img src="https://cloud.githubusercontent.com/assets/11024045/11371536/3e407bd8-9286-11e5-9dc6-e589d828c80f.png" alt="accuracy analysis"></p>
 
-<p>SVM algorithm performance varies with the selection of Cost parameter. So, in order to find the best cost parameter, accuracy is analyzed for a range of cost parameters with ‘tune.svm’ command under the library e1071. But, the best ‘cost’ parameter for the chosen formula is .5. But, the new cost parameter did not improve the accuracy significantly.
+<p>SVM algorithm performance varies with the selection of Cost parameter. So, in order to find the best cost parameter, accuracy is analyzed for a range of cost parameters with <code>tune.svm</code> command under the library e1071. But, the best ‘cost’ parameter for the chosen formula is .5. But, the new cost parameter did not improve the accuracy significantly.
 Thus, linear regression proved to perform slightly better compared to SVM linear regression. </p>
 
 <h1>
 <a id="python-r-integration" class="anchor" href="#python-r-integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python R Integration</h1>
 
-<p>After analyzing and experimenting the performance of different models, linear regression with the best performing formula is chosen to predict the stock price. Model is saved with the R command <code>saveRDS(model, 'linear_model.rds')</code>
-Python program is used to implement recommendation email generation functionality. PipeR module is used to integrate Python with R. Model is saved and imported to Python to make predictions.  </p>
+<p>After analyzing and experimenting the performance of different models, linear regression with the best performing formula is chosen to predict the stock price. Model is saved with the R command  </p>
+
+<pre><code>saveRDS(model, 'linear_model.rds')  
+</code></pre>
+
+<p>Python program is used to implement recommendation email generation functionality. PipeR module is used to integrate Python with R. Model is saved and imported to Python to make predictions.  </p>
 
 <pre><code>r('library(e1071)')  
 
