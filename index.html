@@ -23,10 +23,10 @@
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
 
 <p>Numerous studies have been conducted in search of a prediction model for stock price and market trend. It’s been so popular as it works towards maximizing the investor’s return while keeping their risks minimum. Traditional technical analysis and Machine learning algorithms are the major analysis categories among them.
-In this project, predictive power of Support Vector Machine regression, a supervised learning algorithm and linear regression, are analyzed for short-term stock market prediction. Best performing model among those is used to build a trading system.</p>
+In this project, predictive power of Support Vector Machine(SVM) regression, a supervised learning algorithm and linear regression, are analyzed for short-term stock market prediction. Best performing model among those is used to build a trading system.</p>
 
 <h1>
-<a id="problem-description" class="anchor" href="#problem-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem Description</h1>
+<a id="can-we-make-build-a-stock-trading-assistant-" class="anchor" href="#can-we-make-build-a-stock-trading-assistant-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Can we make build a Stock Trading Assistant ?</h1>
 
 <p>The problem at hand can be summarized as follows. We have a portfolio of a 10 stocks from a particular sector. We would like to invest a fixed amount of money in it. We would like to make sell/buy/keep decisions periodically in order to make maximum return from the investment. Whenever we predict 2% hike in price next day, we decide to buy more of those stock today and sell for 2% price dip. Any other prediction falls under the recommendation ‘keep’. Objective is to generate a stock trading recommendation and send it via email to investors daily. 
 Ideas from machine learning are applied to approach the above problem. The key point towards the solution strategy is that historical values of a given stock, for example, price and/or index carry information which can be utilized to identify a pattern to predict future price. So, in this project, different machine learning models, which represent those pattern, are evaluated and the best one found is used to solve the problem.</p>
@@ -39,7 +39,7 @@ Ideas from machine learning are applied to approach the above problem. The key p
 <h2>
 <a id="algorithms" class="anchor" href="#algorithms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Algorithms</h2>
 
-<p>Support Vector Machine, supervised learning algorithm and linear regression have used in this study. Both of them are implemented in R statistical programming language. Package e1071 is used for svm implementation.</p>
+<p>Support Vector Machine, supervised learning algorithm and linear regression have used in this study. Both of them are implemented in R statistical programming language. Package e1071 is used for SVM implementation.</p>
 
 <h2>
 <a id="data-collection" class="anchor" href="#data-collection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Collection</h2>
@@ -49,7 +49,19 @@ Ideas from machine learning are applied to approach the above problem. The key p
 <h2>
 <a id="data-preprocessing-and-feature-selection" class="anchor" href="#data-preprocessing-and-feature-selection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Preprocessing and Feature Selection</h2>
 
-<p>Collected data has Date, Open, High, Low, Close, Volume, Dow Jones Index and Adjusted Close as otherwise called features. Model building is based on the hypothesis that previous five days of features contain some information on  the next day’s price. So the task is find appropriate features from the previous five days data through analysis. As a first step, the data is processed to extract last five days variables in one single record. In addition, difference between each consecutive days index and volume is calculated and taken as another feature. Difference between consecutive day’s volume value is converted into logarithmic space to make it comparable with other features.</p>
+<p>Collected data has Date, Open, High, Low, Close, Volume, Dow Jones Index and Adjusted Close as otherwise called features. Model building is based on the hypothesis that previous week's features contain some information on  the next day’s price. So the task is find appropriate features from the previous five days data through analysis. As a first step, the data is processed to extract last five days variables in one single record. In addition, difference between each consecutive days index and volume is calculated and taken as another feature. Difference between consecutive day’s volume value is converted into logarithmic space to make it comparable with other features. A portion of the sample input is shown below.
+<img src="https://cloud.githubusercontent.com/assets/11024045/11378734/ec16915c-92a9-11e5-8c16-c3c4a5f97898.png" alt="sample input">
+Adj_Close_1 - Current day's close price  </p>
+
+<p>Low_1 - Current day's low price  </p>
+
+<p>High_1 - Current day's high price  </p>
+
+<p>Index2_1 - Difference between last day and current day's index  </p>
+
+<p>Volume2_1 - Log of the difference between last day and current day's volume  </p>
+
+<p>Adj_Close is next day's price, it is kept in the test files in order to analyze the performance of the model, though, it won't be  available in real case.Other features are self-explanatory.Few test files are uploaded in the repository.  </p>
 
 <h2>
 <a id="training-and-cross-validation-error-analysis" class="anchor" href="#training-and-cross-validation-error-analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Training and Cross-Validation Error Analysis</h2>
@@ -88,18 +100,20 @@ r('predict_stockprice = predict(model,newdata = days5_data)')
 <p>Email is sent from Python evaluating the expected percentage price increase for each stock in the portfolio.</p>
 
 <h1>
-<a id="test-example" class="anchor" href="#test-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test Example</h1>
+<a id="testing" class="anchor" href="#testing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testing</h1>
 
 <h2>
 <a id="input" class="anchor" href="#input" aria-hidden="true"><span class="octicon octicon-link"></span></a>Input</h2>
 
-<p>Input is a csv file with previous 5 days features of the 10 stocks in the portfolio. A portion of the sample input is shown below.<img src="https://cloud.githubusercontent.com/assets/11024045/11378734/ec16915c-92a9-11e5-8c16-c3c4a5f97898.png" alt="sample input">
+<p>Input is a .csv(comma separated) file with last week's days features of the 10 stocks in the portfolio. 
 Python program process the input data through the saved model and generate an email and send to the investor. A sample message body is shown below.</p>
 
 <h2>
 <a id="output" class="anchor" href="#output" aria-hidden="true"><span class="octicon octicon-link"></span></a>Output</h2>
 
-<p><img src="https://cloud.githubusercontent.com/assets/11024045/11378751/06ae9f14-92aa-11e5-9582-d5fef79c993c.png" alt="sample output"></p>
+<p><img src="https://cloud.githubusercontent.com/assets/11024045/11378751/06ae9f14-92aa-11e5-9582-d5fef79c993c.png" alt="sample output">  </p>
+
+<p>For real-time testing data is prepared and tested for two weeks. It is found that the model built is not strong enough to provide insightful trading suggestions. </p>
 
 <h1>
 <a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h1>
