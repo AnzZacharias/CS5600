@@ -110,7 +110,7 @@ r('predict_stockprice = predict(model,newdata = days5_data)')
 <h2>
 <a id="input" class="anchor" href="#input" aria-hidden="true"><span class="octicon octicon-link"></span></a>Input</h2>
 
-<p>Input is a csvfile with last week's features of the 10 stocks in the portfolio. 
+<p>Two programs are created, first one is accepting a flat file in csv format with last week's features of the 10 stocks in the portfolio. Second program is reading stock features directly from yahoo finance and Quandl database and creating the csv file at real-time.
 Python program process the input data through the saved model and generate an email and send to the investor. A sample message body is shown below.</p>
 
 <h2>
@@ -119,7 +119,7 @@ Python program process the input data through the saved model and generate an em
 <p>Screen shot of sample email message is shown below.
 <img src="https://cloud.githubusercontent.com/assets/11024045/11378751/06ae9f14-92aa-11e5-9582-d5fef79c993c.png" alt="sample output">  </p>
 
-<p>For real-time testing data is prepared and tested for two weeks. It is found that model built is not strong enough to reflect 2% price change in order to give insightful trading suggestions. </p>
+<p>For real-time testing data is prepared and tested for two weeks. It is found that model built is not strong enough to reflect 2% price change in order to give insightful trading suggestions. So instead of sending buy/sell recommendation, output format is modified to give predicted percentage change in sorted order.</p>
 
 <h1>
 <a id="conclusion" class="anchor" href="#conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h1>
@@ -128,6 +128,21 @@ Python program process the input data through the saved model and generate an em
 We may need the system to predict even 2% price change in order to make short term investment profitable. As a reflection of low accuracy, system was not able to give promising results with the set of features taken under consideration. </p>
 
 <p>But, it is worth considering to include lot other variables which control stock market ,into the feature set. Company’s quarterly results or capturing the sentiments from the news articles are some of them. Alternatively, model could be altered to predict price movement trend for long term investment options. Conclusively, this study is a good stepping stone to understand machine learning methodologies as well as various possibilities of applying machine learning techniques in stock market.</p>
+
+<h1>
+<a id="references" class="anchor" href="#references" aria-hidden="true"><span class="octicon octicon-link"></span></a>References</h1>
+
+<p><a href="http://blog.andersen.im/wp-%20content/uploads/2012/12/ANovelAlgorithmicTradingFramework.pdf">Novel Algorithmic Trading Network</a></p>
+
+<p><a href="http://cs229.stanford.edu/proj2012/LangWang-%20PatternRecognitionAndPredictionInEquityMarket.pdf">Prediction in Equity Market</a></p>
+
+<p><a href="http://www.iima.org/CIIMA/11%20CIIMA%207-4-07%20Han%2063-72.pdf">SVM for prediction of stocks</a></p>
+
+<p><a href="http://cbio.ensmp.fr/%7Ejvert/svn/tutorials/practical/svmbasic/svmbasic_notes.pdf">SVM in R</a></p>
+
+<p><a href="http://www.ece.umn.edu/users/cherkass/N2002-SI-SVM-13-whole.pdf">Selection of SVM parameters</a></p>
+
+<p><a href="http://www.fromthebottomoftheheap.net/2012/04/01/saving-and-loading-r-objects/">Save and load objects in R</a></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/AnzZacharias/CS5600">Stock Portfolio Management Based On Machine Learning Model</a> is maintained by <a href="https://github.com/AnzZacharias">AnzZacharias</a>.</span>
